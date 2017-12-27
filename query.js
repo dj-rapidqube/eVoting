@@ -13,9 +13,12 @@ let multichain = require("multichain-node")({
           
    multichain.getAddressBalances({address:partyAddress}, (err, res) => {
         console.log(res)
-        if(err == null){
+        if(err == null && res.length != 0){
          return resolve({voteCount:res[0].qty});
-        }else{
+        }else if(err == null && res.length == 0){
+            var count=0
+            return resolve({voteCount:count});
+           }else { 
             console.log(err)
         }
     })
